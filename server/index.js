@@ -1,4 +1,4 @@
-const app=require("express");
+const app=require("express")();
 const morgan=require("morgan");
 const cors=require("cors");
 const bodyParser=require("body-parser");
@@ -18,15 +18,15 @@ app.use(bodyParser.urlencoded({
 if(process.env.NODE_ENV==="development"){
     app.use(cors());
 }
+app.use('/api',authRoutes);
 mongoose.connect(process.env.DATABASE_URL,{
     useCreateIndex:true,
     useUnifiedTopology:true,
     useFindAndModify:true,
     useNewUrlParser:true,
 }).then(()=>{
-    app.use('/api',authRoutes);
     app.listen(PORT,()=>{
-    console.log("The Server is running at Port"+PORT+)
+    console.log("The Server is running at Port"+PORT);
 })
 }).catch((err)=>{
     console.error("Db connection failed",err);
