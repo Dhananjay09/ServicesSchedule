@@ -1,14 +1,24 @@
-const express=require("express");
-const router=express.Router();
-router.post('/signup',(__,res) => res.json("Welcome"));
-router.post('/account-activation',(__,res) => res.json("Account Activatiom"));
+const express = require("express");
+const router = express.Router();
+const {
+  signUp,
+  signIn,
+  activateAccount,
+  forgotPassword,
+  resetPassword,
+} = require("../controllers/auth");
 
-router.post('/signin',(__,res) => res.json("signin"));
+const { userSignupValidator } = require("../validators/auth");
+const { runValidation } = require("../validators");
 
-router.post('/forgot-password',(__,res) => res.json("Forgot Password"));
+router.post("/signup", userSignupValidator, runValidation, signUp);
 
-router.post('/reset-password',(__,res) => res.json("Reset Password"));
+router.post("/account-activation", activateAccount);
 
-router.post('/signup',(__,res) => res.json("Welcome"));
+router.post("/signin", signIn);
 
-module.exports=router;
+router.post("/forgot-password", forgotPassword);
+
+router.post("/reset-password", resetPassword);
+
+module.exports = router;
