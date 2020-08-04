@@ -7,7 +7,6 @@ exports.authorize = (req, res, next) => {
         error: "Unauthorized access",
       });
     }
-
     next();
   });
 };

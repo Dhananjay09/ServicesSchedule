@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { isAuth, signout } from "../utils/helpers";
-
 const Layout = ({ children, match, history }) => {
   const isActive = (path) => {
     if (match.path === path) {
@@ -62,7 +61,6 @@ const Layout = ({ children, match, history }) => {
       )}
     </ul>
   );
-
   return (
     <Fragment>
       {nav()}

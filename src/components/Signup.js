@@ -2,28 +2,24 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import Layout from "./Layout";
-
 const Signup = () => {
-  const [formInputs, setFormInputs] = useState({
+const [formInputs, setFormInputs] = useState({
     name: "",
     email: "",
     password: "",
     buttonText: "Submit",
   });
   const { buttonText, name, email, password } = formInputs;
-
   const handleChange = (evt) => {
     setFormInputs({
       ...formInputs,
       [evt.target.name]: evt.target.value,
     });
   };
-
   const handleSubmit = (evt) => {
     // Avoid page refresh
     evt.preventDefault();
     setFormInputs({ ...formInputs, buttonText: "Submitting..." });
-
     axios
       .post("/signup", {
         name,
@@ -32,28 +28,21 @@ const Signup = () => {
       })
       .then((res) => {
         console.log("SIGNED UP SUCCESS!!", res);
-
         setFormInputs({
           name: "",
           password: "",
           email: "",
           buttonText: "Submit",
         });
-
         toast.success(res.data.message);
       })
       .catch((err) => {
         if (err && err.response && err.response.data) {
           toast.error(err.response.data.error);
         }
-
-        setFormInputs({
-          ...formInputs,
-          buttonText: "Submit",
-        });
+       
       });
   };
-
   const signupForm = () => (
     <form>
       <div className="form-group">
@@ -77,7 +66,6 @@ const Signup = () => {
           className="form-control"
         />
       </div>
-
       <div className="form-group">
         <label className="text-muted">Password</label>
         <input
@@ -88,7 +76,6 @@ const Signup = () => {
           className="form-control"
         />
       </div>
-
       <div>
         <button
           type="button"
@@ -100,7 +87,6 @@ const Signup = () => {
       </div>
     </form>
   );
-
   return (
     <Layout>
       <div className="col-md-6 offset-md-3">
@@ -111,5 +97,4 @@ const Signup = () => {
     </Layout>
   );
 };
-
 export default Signup;

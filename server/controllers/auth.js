@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const _ = require("lodash");
 const User = require("../models/auth");
+const Post = require("../models/post_auth")
 
 var transport = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
@@ -265,3 +266,16 @@ exports.resetPassword = (req, res) => {
     error: "We have not received the reset password link",
   });
 };
+exports.product = (req, res) =>{
+   const {name, email, address, pin, product} = req.body;
+  console.log(email+" "+address);
+  const newPost= new Post({name, email, address, pin, product});
+   newPost.save((err, usedata)=>{
+     if(err){
+       return res.status(400).json({
+         error: err
+       })
+     }
+     return res.json(`Data Saved SuccessFully`);
+   })
+}
