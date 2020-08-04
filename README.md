@@ -1,3 +1,10 @@
+Steps to install=>
+Start Server by typing the command => yarn start:server
+Start Clinet by typing the command in diffrent terminal=> yarn start
+Please install the missing dependencies if any
+open http://localhost:3000 to see the appplication.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
