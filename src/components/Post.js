@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { toast, ToastContainer } from "react-toastify";
 //import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
+import Popup from "reactjs-popup";
 import axios from 'axios'
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
@@ -44,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
+  const [date, setDate]=useState(props.user.date)
+  const [title, setTitle]=useState(props.user.title)
+  const [detail, setDetail]=useState(props.user.detail)
+
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -51,12 +56,19 @@ export default function RecipeReviewCard(props) {
 
   const deleteevent=(id)=>{  
     axios.post("users/delete-event",{_id : id}).then((res)=>{
-      console.log(res)
+      console.log(res.result)
     }).catch((err)=>{
-      console.log(err)
+      console.log(err.result)
     })
   }
-  
+  const updateDetail=(id)=>{
+    axios.post("users/update-event",{_id : id, date : date, title : title, detail: detail}).then((res)=>{
+      console.log(res.result)
+    }).catch((err)=>{
+      console.log(err.result)
+    })
+  }
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -72,7 +84,9 @@ export default function RecipeReviewCard(props) {
         title={props.user.name}        
       />
         <CardContent>
-         
+        <Typography>
+          <b>Date:</b> {props.user.date}
+          </Typography>
             <Typography paragraph>
           <b>Title</b> { props.user.title}
           </Typography>
@@ -83,7 +97,14 @@ export default function RecipeReviewCard(props) {
           <b>Created At:</b> {props.user.createdAt}
           </Typography>
           <DeleteIcon onClick={()=> deleteevent(props.user._id)}/>
+          <Popup trigger={<button> Update</button>} position="right center">
+            <div><input type="text" value={date} onChange={e => {setDate(e.target.value)}} />
+            <input type="text" value={title} onChange={e => {setTitle(e.target.value)}} />
+            <input type="text" value={detail} onChange={e => {setDetail(e.target.value)}} />
+            <button onClick={()=>updateDetail(props.user._id)}>Done</button>
+            </div>
+          </Popup>
         </CardContent>
     </Card>
-  );
+  )
 }

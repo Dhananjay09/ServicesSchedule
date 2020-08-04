@@ -66,3 +66,18 @@ exports.deletEvent=(req, res) =>{
     })
   })
 }
+exports.updateEvent=(req, res)=>{
+  const {_id, date, title, detail}=req.body;
+  console.log("Id recived IS "+ _id);
+  Post.findByIdAndUpdate({_id: _id}, { date : date, title: title, detail: detail}).exec((err, user)=>{
+    if(err){
+      return res.status(400).json({
+        "error": "Error Occured"
+      }
+      )
+    }
+    return res.json({
+      "detail": user
+    })
+  })
+}
