@@ -42,8 +42,8 @@ exports.likePost = (req, res) => {
 })
 }
 exports.addPost = (req, res) => {
-  const {email, date, title, detail}= req.body;
-  const newPost=new Post({email, date, title, detail });
+  const {email, title, detail}= req.body;
+  const newPost=new Post({email, title, detail });
   newPost.save((err,userData)=>{
     if(err){
       console.log("Error Occured");
@@ -67,9 +67,9 @@ exports.deletEvent=(req, res) =>{
   })
 }
 exports.updateEvent=(req, res)=>{
-  const {_id, date, title, detail}=req.body;
+  const {_id, status,title, detail}=req.body;
   console.log("Id recived IS "+ _id);
-  Post.findByIdAndUpdate({_id: _id}, { date : date, title: title, detail: detail}).exec((err, user)=>{
+  Post.findByIdAndUpdate({_id: _id}, { status:!status,  title: title, detail: detail}).exec((err, user)=>{
     if(err){
       return res.status(400).json({
         "error": "Error Occured"

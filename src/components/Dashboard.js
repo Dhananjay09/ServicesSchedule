@@ -31,7 +31,7 @@ import AddIcon from '@material-ui/icons/Add';
           toast.error(err.response.data.error);
         }
       });
-  }, [users]);
+  }, []);
   const create_newpost = (event) =>{
     setCreatpost(!createpost);
     event.preventDefault();

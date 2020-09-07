@@ -8,11 +8,9 @@ const UserSchema = new Schema(
       trim: true,
       required: true
     },
-    date: {
-      type: String,
-      trim: true,
-      required: true,
-      max: 32,
+    status:{
+      type: Boolean,
+      default: 1
     },
     title: {
       type: String,

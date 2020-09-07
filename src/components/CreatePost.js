@@ -9,14 +9,14 @@ import { toast, ToastContainer } from "react-toastify";
 import { green } from '@material-ui/core/colors';
 const CreatePost=() =>{
     
-    const [date, setDate]=useState() 
+   
     const [email, setEmail]=useState() 
     const [title, setTitle]=useState() 
     const [detail, setDetail]=useState() 
     const CreateNewPost = (event) => {
-      if(date && email && title && detail){
+      if( email && title && detail){
 //        console.log(name+ email+ pin+ address+ product);
-        axios.post("users/add-post", {email : email, date : date, title : title, detail : detail}).then(res=>{
+        axios.post("users/add-post", {email : email,  title : title, detail : detail}).then(res=>{
           toast.success("Succesfully Created");
         }).catch((err)=>{
           toast.error("Error Occured");
@@ -27,7 +27,7 @@ const CreatePost=() =>{
     return (
         <Form style={{color: green}}>
         <legend>New Post</legend>
-        <Input placeholder="Date" onChange ={(e) =>setDate(e.target.value)} />
+        
         <Input placeholder="Email" onChange ={(e) => setEmail(e.target.value)}/>
         <Input placeholder="title"  onChange ={(e) => setTitle(e.target.value)}/>
         <Textarea placeholder="detail" onChange ={(e) => setDetail(e.target.value)} />
